@@ -28,10 +28,10 @@ With a movie library of 100k movies, we have available information of the types 
 
 **Code Description**
 
-	Our kNN program, will take user input, and compare it against all of the data in our dataset, pitting it against 
+Our kNN program, will take user input, and compare it against all of the data in our dataset, pitting it against 
 
 ---
 
 **Distribution**
 
-	When we initially began the project, we allocated the different aspects of the project throughout the group of us. Actually executing the project, some of the jobs changed. Jonathan Tran ended up completing the hashmap function and implementation by himself and he also contributed to the GUI of our program. Rachel Prempeh amended the dataset to include new columns and add more datapoints to get the dataset to 100,000. She also contributed to the GUI as well as aided with the machine learning kNN program. Anna Grace Lube was assigned the machine learning part, with Rachel Prempeh, as well as completed the report aspect of the project. We all researched and contributed creatively to the assignment, asking and answering questions for how we wanted to execute each part of the assignment, as well as the development of the original idea itself.
+When we initially began the project, we allocated the different aspects of the project throughout the group of us. Actually executing the project, some of the jobs changed. Jonathan Tran ended up completing the hashmap function and implementation by himself and he also contributed to the GUI of our program. Rachel Prempeh amended the dataset to include new columns and add more datapoints to get the dataset to 100,000. She also contributed to the GUI as well as aided with the machine learning kNN program. Anna Grace Lube was assigned the machine learning part, with Rachel Prempeh, as well as completed the report aspect of the project. We all researched and contributed creatively to the assignment, asking and answering questions for how we wanted to execute each part of the assignment, as well as the development of the original idea itself.
