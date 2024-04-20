@@ -227,6 +227,59 @@ int main()
     submit.setOutlineThickness(4);
     submit.setPosition(140, 600);
 
+    sf::RectangleShape reset(sf::Vector2f(140, 30));
+    reset.setFillColor(sf::Color::Cyan);
+    reset.setOutlineColor(sf::Color::Black);
+    reset.setOutlineThickness(4);
+    reset.setPosition(570, 555);
+
+    sf::Text resetText;
+    resetText.setString("RESET");
+    resetText.setFont(font);
+    resetText.setCharacterSize(30);
+    resetText.setFillColor(sf::Color::Black);
+    resetText.setPosition(592,552);
+
+    sf::RectangleShape genreOverlay(sf::Vector2f(140, 30));
+    genreOverlay.setFillColor(sf::Color::Green);
+    genreOverlay.setOutlineColor(sf::Color::Black);
+    genreOverlay.setOutlineThickness(4);
+    genreOverlay.setPosition(570, 615);
+
+    sf::Text genreOverlayText;
+    genreOverlayText.setString("GENRES");
+    genreOverlayText.setFont(font);
+    genreOverlayText.setCharacterSize(30);
+    genreOverlayText.setFillColor(sf::Color::Black);
+    genreOverlayText.setPosition(580,612);
+
+    sf::Text genres;
+    genres.setString("Action          Children\n"
+                     "Adventure   Horror\n"
+                     "War              Documentary\n"
+                     "Western      Drama\n"
+                     "Musical        Animation\n"
+                     "Crime\n"
+                     "Mystery\n"
+                     "Thriller\n"
+                     "IMAX\n"
+                     "Romance\n"
+                     "Sci-Fi\n"
+                     "Fantasy\n"
+                     "Comedy\n");
+    genres.setFont(font);
+    genres.setCharacterSize(30);
+    genres.setFillColor(sf::Color::Black);
+    genres.setPosition(20,20);
+
+    sf::RectangleShape genreOverlayBackground(sf::Vector2f(1280, 720));
+    genreOverlayBackground.setFillColor(sf::Color::Magenta);
+    genreOverlayBackground.setOutlineColor(sf::Color::Black);
+    genreOverlayBackground.setOutlineThickness(4);
+    genreOverlayBackground.setPosition(0, 0);
+
+    bool drawOverlay = false;
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -235,12 +288,35 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            // Submit button
             if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
             && sf::Mouse::getPosition(window).x > 140 && sf::Mouse::getPosition(window).x < 280
                     && sf::Mouse::getPosition(window).y > 600 && sf::Mouse::getPosition(window).y < 650)
             {
+                // Put the function to choose what the result is here.
                 numOne.setString("          Princess Mononoke\nAction, Adventure, Anime - 1997");
             }
+
+            // Reset button
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
+               && sf::Mouse::getPosition(window).x > 570 && sf::Mouse::getPosition(window).x < 710
+               && sf::Mouse::getPosition(window).y > 555 && sf::Mouse::getPosition(window).y < 585)
+            {
+                // Put the function to choose what the result is here.
+                numOne.setString("");
+            }
+
+            // Genres button
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
+               && sf::Mouse::getPosition(window).x > 570 && sf::Mouse::getPosition(window).x < 710
+               && sf::Mouse::getPosition(window).y > 615 && sf::Mouse::getPosition(window).y < 645)
+            {
+                // Put the function to choose what the result is here.
+                drawOverlay = !drawOverlay;
+            }
+
+            //Text entry
             if (event.type == sf::Event::TextEntered)
             {
                 if(sf::Mouse::getPosition(window).x > 180 && sf::Mouse::getPosition(window).x < 340
@@ -308,6 +384,17 @@ int main()
         window.draw(q3TS);
         window.draw(q4TS);
         window.draw(q5TS);
+        window.draw(reset);
+        window.draw(genreOverlay);
+        window.draw(resetText);
+        window.draw(genreOverlayText);
+        if(drawOverlay)
+        {
+            window.draw(genreOverlayBackground);
+            window.draw(genreOverlay);
+            window.draw(genreOverlayText);
+            window.draw(genres);
+        }
         window.display();
     }
 
