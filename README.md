@@ -56,8 +56,8 @@ There were not many challenges we ran into, other than sometimes being a little 
 
 Recompleting this assignment, we all would have liked to begin a little sooner than we did. We would have created the same quality of work had we started earlier, but the amount that we worked would have been more spaced out. We also might think to use a different machine learning algorithm, due to the fact that kNN has a very bad time complexity. There were also different ways to implement kNN which could have also decreased the time complexity that we could have tested out.
 
-	*Jonathan Tran* : I was able to enhance and better understand how to utilize GitHub to improve my projects and learn how to work in a collaborative project. I also have a better grasp on how to implement hash maps and manipulate them for easier use
+- *Jonathan Tran* : I was able to enhance and better understand how to utilize GitHub to improve my projects and learn how to work in a collaborative project. I also have a better grasp on how to implement hash maps and manipulate them for easier use
 
-	*Rachel Prempeh* : 
+- *Rachel Prempeh* : 
 
-	*Anna Grace Lube* : I learned the importance of communication through group work and how important GitHub is to group assignments for an easier transfer of information between the group members when working individually.
+- *Anna Grace Lube* : I learned the importance of communication through group work and how important GitHub is to group assignments for an easier transfer of information between the group members when working individually.
