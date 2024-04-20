@@ -61,3 +61,9 @@ Recompleting this assignment, we all would have liked to begin a little sooner t
 - *Rachel Prempeh* : 
 
 - *Anna Grace Lube* : I learned the importance of communication through group work and how important GitHub is to group assignments for an easier transfer of information between the group members when working individually.
+
+---
+
+*References*
+
+- [Original Dataset](https://grouplens.org/datasets/movielens/latest/)
