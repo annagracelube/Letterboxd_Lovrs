@@ -13,6 +13,5 @@ public:
     bool search(std::string key);
     void insert(std::string key, std::vector<std::string> values);
     void resizeAndRehash(int newCapacity);
-    void printOut();
-
+    std::vector<std::pair<std::string, std::vector<std::string>>> compare(std::string rating, std::string year, std::string duration);
 };

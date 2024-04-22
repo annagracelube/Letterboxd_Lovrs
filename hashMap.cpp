@@ -1,10 +1,12 @@
 #include "hashMap.h"
 
+// Time Complexity: O(1)
 int hashMap::hash(std::string &key)
 {
     return key.length() % capacity;
 }
 
+// Time Complexity: O(n) where n is the number of keys in the bucket
 bool hashMap::search(std::string key)
 {
     int bucketIndex = hash(key);
@@ -18,6 +20,7 @@ bool hashMap::search(std::string key)
     return false;
 }
 
+// Time Complexity: O(1);
 void hashMap::insert(std::string key, std::vector<std::string> values)
 {
     if(size >= capacity * 0.75)
@@ -34,6 +37,8 @@ void hashMap::insert(std::string key, std::vector<std::string> values)
     size++;
 }
 
+// Time Complexity: O(n * m) where n is the number of elements in the bucket and m is the number of
+// keys in each bucket.
 void hashMap::resizeAndRehash(int newCapacity)
 {
     std::vector<std::vector<std::pair<std::string, std::vector<std::string>>>> newMap(newCapacity);
@@ -50,18 +55,25 @@ void hashMap::resizeAndRehash(int newCapacity)
     capacity = newCapacity;
 }
 
-void hashMap::printOut()
+// Time Complexity: O(n*m) where n is the number of buckets and m the number of keys
+// because each bucket's keys are being searched to find possible matches for the criteria.
+std::vector<std::pair<std::string, std::vector<std::string>>> hashMap::compare(std::string rating, std::string year, std::string duration)
 {
-    for(auto bucket:map)
+    std::vector<std::pair<std::string, std::vector<std::string>>> results;
+    for(auto it:map)
     {
-        for(auto key:bucket)
+        for(auto bit:it)
         {
-            std::cout << key.first << " ";
-            for(auto it:key.second)
+            if(bit.second[0] != "" && bit.second[2] != "")
             {
-                std::cout << it << " ";
+                if(bit.second[0] >= rating && bit.second[1] >= year && bit.second[2] <= duration)
+                {
+                    std::cout << bit.second[0] << " " << rating << " " << bit.second[2] << " " << duration << "\n";
+                    results.push_back(bit);
+                }
             }
-            std::cout << "\n";
+
         }
     }
+    return results;
 }

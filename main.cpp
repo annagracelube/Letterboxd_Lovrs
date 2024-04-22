@@ -1,15 +1,52 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <chrono>
+#include <sstream>
+#include <iomanip>
 #include "hashMap.h"
 
 // Pseudocode for separate chaining from Discussion 12 slides used.
-// 19 genres
+// https://stackoverflow.com/questions/30181600/reading-two-columns-in-csv-file-in-c for reading the CSV file
+// https://stackoverflow.com/questions/42866524/convert-chronoduration-to-string-or-c-string for timing the compare function
+
 int main()
 {
+    // Creates the hashmap and reads in data from the CSV file to add to it.
+    hashMap map;
+    std::ifstream in ("final_data_with_titles.csv");
+    std::vector<std::vector<std::string>> movieData;
+    std::string line;
+
+    int count = 0;
+    while(std::getline(in, line))
+    {
+        std::istringstream iss(line);
+        std::vector<std::string> data;
+        std::string value;
+        while(std::getline(iss, value, ','))
+        {
+            data.push_back(value);
+        }
+        std::vector<std::string> attributes;
+        attributes.push_back(data[1]);
+        attributes.push_back(data[2]);
+        attributes.push_back(data[3]);
+        map.insert(data[4], attributes);
+        count++;
+
+        // Limits the dataset to the first 1000 entries to speed up testing, remove when ready to submit.
+        if(count > 2000)
+        {
+            break;
+        }
+    }
+
+    // Creates the render window and all the visual elements
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Letterboxd Lvrs");
     sf::Font font;
-    font.loadFromFile("C:/Users/Jonathan/Documents/Lora.ttf");
+    font.loadFromFile("Lora.ttf");
 
     sf::Text title;
     title.setString("MOVIE MATCH MAKER");
@@ -173,6 +210,21 @@ int main()
     q5TS.setFillColor(textColor);
     q5TS.setPosition(160,490);
 
+    sf::Text q6T;
+    q6T.setString("RATING");
+    q6T.setFont(font);
+    q6T.setCharacterSize(20);
+    q6T.setFillColor(textColor);
+    q6T.setPosition(65,550);
+
+    sf::String q6TSP = "";
+    sf::Text q6TS;
+    q6TS.setString(q6TSP);
+    q6TS.setFont(font);
+    q6TS.setCharacterSize(20);
+    q6TS.setFillColor(textColor);
+    q6TS.setPosition(160,550);
+
     sf::RectangleShape rectangle(sf::Vector2f(300, 525));
     rectangle.setFillColor(background);
     rectangle.setOutlineColor(sf::Color::Black);
@@ -220,6 +272,12 @@ int main()
     q5.setOutlineColor(sf::Color::Black);
     q5.setOutlineThickness(4);
     q5.setPosition(160, 490);
+
+    sf::RectangleShape q6(sf::Vector2f(180, 25));
+    q6.setFillColor(background);
+    q6.setOutlineColor(sf::Color::Black);
+    q6.setOutlineThickness(4);
+    q6.setPosition(160, 550);
 
     sf::RectangleShape submit(sf::Vector2f(140, 50));
     submit.setFillColor(textColor);
@@ -280,6 +338,7 @@ int main()
 
     bool drawOverlay = false;
 
+    // Runs the window and polls for clicks and mouse position to determine what happens when clicked.
     while (window.isOpen())
     {
         sf::Event event;
@@ -294,8 +353,50 @@ int main()
             && sf::Mouse::getPosition(window).x > 140 && sf::Mouse::getPosition(window).x < 280
                     && sf::Mouse::getPosition(window).y > 600 && sf::Mouse::getPosition(window).y < 650)
             {
-                // Put the function to choose what the result is here.
-                numOne.setString("          Princess Mononoke\nAction, Adventure, Anime - 1997");
+                // Times the compare function.
+                auto start = std::chrono::system_clock::now();
+                std::vector<std::pair<std::string, std::vector<std::string>>> results = map.compare(q6TSP, q5TSP, q4TSP);
+                // If results vector is greater than 0, sorts the vector alphabetically and then adds
+                // the results to each visual element on the GUI as needed.
+                if(results.size() > 0)
+                {
+                    std::sort(results.begin(), results.end());
+                    std::string resultString = "";
+                    resultString += results[0].first + " ";
+                    auto end = std::chrono::system_clock::now();
+                    std::ostringstream out;
+                    out << std::chrono::duration<double>(end-start).count() << 's';
+                    std::string s = out.str();
+                    numOne.setString(resultString + " \nTime Taken: " + s);
+
+                    std::string resultString2 = "1. ";
+                    resultString2 += results[0].first + "\n " + results[0].second[0];
+                    r1.setString(resultString2);
+                }
+                if(results.size() > 1)
+                {
+                    std::string resultString = "2. ";
+                    resultString += results[1].first + "\n " + results[1].second[0];
+                    r2.setString(resultString);
+                }
+                if(results.size() > 2)
+                {
+                    std::string resultString = "3. ";
+                    resultString += results[2].first + "\n " + results[2].second[0];
+                    r3.setString(resultString);
+                }
+                if(results.size() > 3)
+                {
+                    std::string resultString = "4. ";
+                    resultString += results[3].first + "\n " + results[3].second[0];
+                    r4.setString(resultString);
+                }
+                if(results.size() > 4)
+                {
+                    std::string resultString = "5. ";
+                    resultString += results[4].first + "\n " + results[4].second[0];
+                    r5.setString(resultString);
+                }
             }
 
             // Reset button
@@ -303,16 +404,32 @@ int main()
                && sf::Mouse::getPosition(window).x > 570 && sf::Mouse::getPosition(window).x < 710
                && sf::Mouse::getPosition(window).y > 555 && sf::Mouse::getPosition(window).y < 585)
             {
-                // Put the function to choose what the result is here.
                 numOne.setString("");
+                q1TSP = "";
+                q1TS.setString(q1TSP);
+                q2TSP = "";
+                q2TS.setString(q2TSP);
+                q3TSP = "";
+                q3TS.setString(q3TSP);
+                q4TSP = "";
+                q4TS.setString(q4TSP);
+                q5TSP = "";
+                q5TS.setString(q5TSP);
+                q6TSP = "";
+                q6TS.setString(q6TSP);
+
+                r1.setString("1. ");
+                r2.setString("2. ");
+                r3.setString("3. ");
+                r4.setString("4. ");
+                r5.setString("5. ");
             }
 
-            // Genres button
+            // Genres overlay button
             if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
                && sf::Mouse::getPosition(window).x > 570 && sf::Mouse::getPosition(window).x < 710
                && sf::Mouse::getPosition(window).y > 615 && sf::Mouse::getPosition(window).y < 645)
             {
-                // Put the function to choose what the result is here.
                 drawOverlay = !drawOverlay;
             }
 
@@ -349,6 +466,12 @@ int main()
                     q5TSP +=event.text.unicode;
                     q5TS.setString(q5TSP);
                 }
+                if(sf::Mouse::getPosition(window).x > 180 && sf::Mouse::getPosition(window).x < 340
+                   && sf::Mouse::getPosition(window).y > 550 && sf::Mouse::getPosition(window).y < 575)
+                {
+                    q6TSP +=event.text.unicode;
+                    q6TS.setString(q6TSP);
+                }
             }
         }
 
@@ -370,6 +493,8 @@ int main()
         window.draw(q4T);
         window.draw(q5);
         window.draw(q5T);
+        window.draw(q6);
+        window.draw(q6T);
         window.draw(resultTitle);
         window.draw(topResults);
         window.draw(topResultsText);
@@ -384,6 +509,7 @@ int main()
         window.draw(q3TS);
         window.draw(q4TS);
         window.draw(q5TS);
+        window.draw(q6TS);
         window.draw(reset);
         window.draw(genreOverlay);
         window.draw(resetText);
@@ -397,25 +523,6 @@ int main()
         }
         window.display();
     }
-
-    /*
-    hashMap map;
-    std::vector<std::string> values {"hello", "haha", "hmm"};
-    std::vector<std::string> values2 {"hello2", "haha2", "hmm2"};
-    map.insert("hello", values);
-    map.insert("hello", values2);
-    map.insert("hello2", values2);
-    map.insert("hello3", values2);
-    map.insert("a", values2);
-    map.insert("b", values2);
-    map.insert("c", values2);
-    map.insert("d", values2);
-    map.insert("e", values2);
-    map.insert("f", values2);
-    */
-    //std::cout << map.search("hello") << " " << map.search("hello2") << " " << map.search("nah") << "\n";
-    //std::cout << map.capacity << " " << map.size << "\n";
-    //map.printOut();
 
     return 0;
 }
