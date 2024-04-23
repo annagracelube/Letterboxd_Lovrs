@@ -66,9 +66,8 @@ std::vector<std::pair<std::string, std::vector<std::string>>> hashMap::compare(s
         {
             if(bit.second[0] != "" && bit.second[2] != "")
             {
-                if(bit.second[0] >= rating && bit.second[1] >= year && bit.second[2] <= duration)
+                if(std::stod(bit.second[0]) >= std::stod(rating) && bit.second[1] >= year && bit.second[2] <= duration)
                 {
-                    std::cout << bit.second[0] << " " << rating << " " << bit.second[2] << " " << duration << "\n";
                     results.push_back(bit);
                 }
             }

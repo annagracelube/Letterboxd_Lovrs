@@ -20,6 +20,7 @@ int main()
     std::string line;
 
     int count = 0;
+    std::getline(in, line);
     while(std::getline(in, line))
     {
         std::istringstream iss(line);
@@ -31,8 +32,8 @@ int main()
         }
         std::vector<std::string> attributes;
         attributes.push_back(data[1]);
-        attributes.push_back(data[2]);
         attributes.push_back(data[3]);
+        attributes.push_back(data[2]);
         map.insert(data[4], attributes);
         count++;
 
