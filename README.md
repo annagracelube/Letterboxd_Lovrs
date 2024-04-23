@@ -1,6 +1,6 @@
-# Letterboxd Lovrs
+# Letterboxd Lovrs Project
 
-Hi all and welcome to our program : *Letterboxd Lovrs*!
+Hi all and welcome to our program : *Movie Match Maker*!
 
 We have two different algorithms that we used and we will go into how each one works!!
 
