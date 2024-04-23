@@ -1,4 +1,4 @@
-##Letterboxd Lovrs
+## Letterboxd Lovrs
 
 Hi all and welcome to our program : *Letterboxd Lovrs*!
 
@@ -10,7 +10,7 @@ We have two different algorithms that we used and we will go into how each one w
 
 ---
 
-#Machine Learning Algorithm
+# Machine Learning Algorithm
 
 When initially running our program, the computer will print out a list of 19 possible genres that the user, you, can choose from. Inputting the choices with a comma in between them as well as capitalizing the genres will lead to a successful output.
 
@@ -20,7 +20,7 @@ After that, a list of five different movies will be printed out along with ratin
 
 ---
 
-#Hash Maps
+# Hash Maps
 
 When running our C++ hash maps function, a GUI window will pop up for you to input three different genres. If you need a refresher on the different genres available, clicking the "Genres" button at the bottom of the screen will take you to a new page with a list of the different possible genres to choose from.
 
