@@ -4,9 +4,9 @@ Hi all and welcome to our program : *Letterboxd Lovrs*!
 
 We have two different algorithms that we used and we will go into how each one works!!
 
-- Machine Learning with Python
+- [Machine Learning with Python](#machine-learning-algorithm)
 
-- Hash Maps with C++
+- [Hash Maps with C++](#hash-map-algorithm)
 
 ---
 
@@ -20,7 +20,7 @@ After that, a list of five different movies will be printed out along with ratin
 
 ---
 
-# Hash Maps
+# Hash Map Algorithm
 
 When running our C++ hash maps function, a GUI window will pop up for you to input three different genres. If you need a refresher on the different genres available, clicking the "Genres" button at the bottom of the screen will take you to a new page with a list of the different possible genres to choose from.
 
